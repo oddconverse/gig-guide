@@ -6,10 +6,14 @@ body {
 }
 div {
     background-color: #888888;
+    height: 100%;
 }
 .content {
-    overflow: auto;
-    width: 100%;
+    margin: auto;
+    width: 80%;
+    grid-template-columns: 33% 33% 33%;
+    height: 100%;
+    
 }
 .header div {
     margin: 5%;
@@ -18,12 +22,15 @@ div {
 .header {
     overflow: auto;
 }
+.body {
+    display: flex; 
+}
 .main-content div {
-    width: 33%;
     float: left;
     margin: 5%;
+    flex: 1;
 }
 
-#right_sidebar {
-    float: right;
+.right-sidebar-content {
+    display: block;
 }
