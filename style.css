@@ -31,6 +31,6 @@ div {
     flex: 1;
 }
 
-.right-sidebar-content {
+div .right-sidebar-content  {
     display: block;
 }
