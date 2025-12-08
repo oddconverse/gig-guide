@@ -6,31 +6,34 @@ body {
 }
 div {
     background-color: #888888;
-    height: 100%;
+    padding: 1%;
+}
+div.content {
+    background-color: #888888;
 }
 .content {
     margin: auto;
     width: 80%;
-    grid-template-columns: 33% 33% 33%;
     height: 100%;
-    
 }
-.header div {
-    margin: 5%;
-    padding: 5%;
+div.header {
+    margin: 1%;
+    padding: 1%;
+    
 }
 .header {
     overflow: auto;
 }
-.body {
-    display: flex; 
-}
-.main-content div {
-    float: left;
-    margin: 5%;
+.gig-body {
     flex: 1;
 }
+div.main-content {
+    display: flex;
+}
+div.main-content div {
+    margin: 5%;
+}
 
-div .right-sidebar-content  {
+div.right-sidebar-content {
     display: block;
 }
