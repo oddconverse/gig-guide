@@ -1,0 +1,16 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    background-color: black;
+}
+div {
+    background-color: #888888;
+}
+div.header {
+    margin: 1%;
+    padding: 1%;
+}
+.header {
+    overflow: auto;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        async function buildPage(jsonLink) {
+            let response = await fetch(jsonLink)
+            let artist = await response.json();
+            document.getElementById("artist-name").innerHTML = artist.name;
+        }
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id')
+        const pageObject = id + "/" + id + ".json";
+        buildPage(pageObject);
+    </script>
+    <header>
+        <link rel="stylesheet" href="../main.css">
+        <div class="header">
+            <h1>Gig city</h1>
+        </div>
+    </header>
+    <body>
+        <div class="content">
+            <div class="info-head">
+                <h1 id="artist-name">Diddy blud 67</h1>
+            </div>
+        </div>
+    </body>
+</html>
