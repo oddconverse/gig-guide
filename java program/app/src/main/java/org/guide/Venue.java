@@ -7,6 +7,6 @@ public class Venue {
     private String name;
     private String address;
     private String description;
-    private ArrayList<String> gigIds;
+    private ArrayList<Gig> gigs;
 
 }
