@@ -2,15 +2,26 @@
 
 const express = require('express');
 const app = express();
+const page = require('page_classes');
 
 const hostname = '127.0.0.1';
 const port = 3000;
+// uncomment below if working on pc
 const ROOTPATH = 'D:/gig-guide/website/';
+// uncomment below if working on laptop
+// const ROOTPATH = 'C:/Users/jarra/Documents/gig-guide/website';
 
 app.use(express.static(ROOTPATH));
 
 app.get('/', (request, response) => {
-    response.sendFile(`${ROOTPATH}main.html`);
+    JSDOM.fromFile(`${ROOTPATH}main.html`).then(dom => {
+        console.log(dom.serialize());
+        let document = dom.window.document;
+        //document.getElementById();
+        response.sendFile(`${ROOTPATH}main.html`);
+    });
+
+
 });
 
 app.get('/gigs/', (request, response) => {

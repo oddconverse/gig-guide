@@ -13,6 +13,7 @@ const client = createClient(supabaseUrl, supabaseKey);
 async function loadHomePage(date) {
     // sql to db finds event and venue info
     // also finds artist info for future implementation
+    let currentDate = Date.now().toISOString().substring(0, 10);
     let {data: events, error} = await client.from('events').select(`*, venues(venue_id, *), event_lineup(event_lineup_id, artist_lineup(artist_id, artists(artist_id)))`)
     // events to be shown
     const allEvents = []
