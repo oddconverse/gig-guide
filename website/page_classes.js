@@ -17,11 +17,12 @@ export class HomePage {
     }
 }
 export class Artist {
-    constructor(id, name, events, description, tags) {
+    constructor(id, name, events, description, links, tags) {
         this.id = id;
         this.name = name;
         this.events = events;
         this.description = description;
+        this.links = links;
         this.tags = tags;
     }
     buildPage() {
@@ -76,6 +77,16 @@ export class Venue {
         this.accessibility = accessibility;
         this.events = events;
         this.tags = tags;
+    }
+    tags_html() {
+        let text = ``;
+        for (let i = 0; i < tags.length; i++) {
+
+        }
+        return text;
+    }
+    address_string() {
+        return `${this.address} ${this.suburb} ${this.postcode}`;
     }
 }
 export class Event {
