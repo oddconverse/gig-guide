@@ -2,7 +2,12 @@
 
 const express = require('express');
 const app = express();
-const page = require('page_classes');
+
+const classes = require('./page_classes.js')
+const HomePage = classes.HomePage;
+
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -14,14 +19,7 @@ const ROOTPATH = 'D:/gig-guide/website/';
 app.use(express.static(ROOTPATH));
 
 app.get('/', (request, response) => {
-    JSDOM.fromFile(`${ROOTPATH}main.html`).then(dom => {
-        console.log(dom.serialize());
-        let document = dom.window.document;
-        //document.getElementById();
-        response.sendFile(`${ROOTPATH}main.html`);
-    });
-
-
+    response.send(HomePage.build(Date.now()));
 });
 
 app.get('/gigs/', (request, response) => {

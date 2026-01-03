@@ -1,5 +1,4 @@
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+import { JSDOM } from 'jsdom';
 
 // uncomment if on pc
 const ROOTPATH = `D:/gig-guide/website/`
@@ -11,9 +10,10 @@ export class HomePage {
         
     }
     static build(date) {
-        return JSDOM.fromFile(`${ROOTPATH}template.html`).then(dom => {
-
+        JSDOM.fromFile(`${ROOTPATH}template.html`).then(dom => {
+            console.log(dom.serialise());
         })
+        return dom;
     }
 }
 export class Artist {
