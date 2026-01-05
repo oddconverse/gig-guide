@@ -9,17 +9,21 @@ const HomePage = classes.HomePage;
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
+const fs = require('fs');
+
 const hostname = '127.0.0.1';
 const port = 3000;
 // uncomment below if working on pc
-const ROOTPATH = 'D:/gig-guide/website/';
+// const ROOTPATH = 'D:/gig-guide/website/';
 // uncomment below if working on laptop
-// const ROOTPATH = 'C:/Users/jarra/Documents/gig-guide/website';
+const ROOTPATH = 'C:/Users/jarra/Documents/gig-guide/website/';
 
 app.use(express.static(ROOTPATH));
 
 app.get('/', (request, response) => {
-    response.send(HomePage.build(Date.now()));
+    //response.render(HomePage.build(Date.now()));
+    let data = fs.readFileSync('main.html').toString();
+    response.send(data);
 });
 
 app.get('/gigs/', (request, response) => {

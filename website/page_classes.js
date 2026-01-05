@@ -1,19 +1,16 @@
 import { JSDOM } from 'jsdom';
 
 // uncomment if on pc
-const ROOTPATH = `D:/gig-guide/website/`
+//const ROOTPATH = `D:/gig-guide/website/`
 // uncomment if on laptop
-// const ROOTPATH = `C:/Users/jarra/Documents/gig-guide/website`
+const ROOTPATH = `C:/Users/jarra/Documents/gig-guide/website/`
 
 export class HomePage {
-    constructor() {
-        
-    }
     static build(date) {
-        JSDOM.fromFile(`${ROOTPATH}template.html`).then(dom => {
-            console.log(dom.serialise());
-        })
-        return dom;
+        JSDOM.fromFile(`${ROOTPATH}main.html`).then(dom => {
+            console.log(dom.serialize());
+            return dom.serialize();
+        });
     }
 }
 export class Artist {

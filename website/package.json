@@ -2,6 +2,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
     "express": "^5.2.1",
+    "handlebars": "^4.7.8",
     "jsdom": "^27.4.0"
   }
 }

@@ -19,6 +19,9 @@
                         <th>Date and Time</th>
                         <th>Tickets</th>
                     </tr>
+                    {{#each event}}
+                        {{event_homepage_template}}
+                    {{/each}}
                     <tr>
                         <td><a href="gigs/?id=2">Sidney Phillips, Brazen Barbie + More</a></td>
                         <td><a href="venues/">The Evelyn Hotel</a></td>
