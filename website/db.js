@@ -61,7 +61,7 @@ function dateTimeString(dateTime) {
     let meridian = "AM";
     // changes out of 24hr time and adjusts meridian
     if (hours > 12) {
-        hours = dateTime.getHours() - 12;
+        hours = hours - 12;
         meridian = "PM"
     }
     // 12:00am
@@ -76,14 +76,6 @@ function dateTimeString(dateTime) {
     return `${dateTime.getDate()}-${dateTime.getMonth()}-${dateTime.getFullYear()} ${hours}:${minutes} ${meridian}`
 }
 
-Handlebars.registerHelper('event_homepage_template', function () {
-    let text = `<tr>`
-    text += `<td><a href="{{this.event_id}}">{{this.event_name}}</a></td>`
-    text += `<td><a href="{{this.venue_id}}">{{this.venue.name}}</a></td>`
-    text += `<td>${dateTimeString({{this.date_and_time}})}</td>`
-    text += `<td><a href="{{this.ticket_link}}>Link</a></td></tr>`
-    return new Handlebars.SafeString(text);
-})
 let currentDate = new Date().toISOString()
 let dateArray = currentDate.split('T')
 let date = dateArray[0]

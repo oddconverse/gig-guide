@@ -6,6 +6,8 @@ const app = express();
 const classes = require('./page_classes.js')
 const HomePage = classes.HomePage;
 
+const Handlebars = require('handlebars');
+
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
@@ -19,6 +21,15 @@ const port = 3000;
 const ROOTPATH = 'C:/Users/jarra/Documents/gig-guide/website/';
 
 app.use(express.static(ROOTPATH));
+
+Handlebars.registerHelper('event_homepage_template', function () {
+    let text = `<tr>`
+    text += `<td><a href="{{this.event_id}}">{{this.event_name}}</a></td>`
+    text += `<td><a href="{{this.venue_id}}">{{this.venue.name}}</a></td>`
+    //text += `<td>${dateTimeString({{this.date_and_time}})}</td>`
+    text += `<td><a href="{{this.ticket_link}}>Link</a></td></tr>`
+    return new Handlebars.SafeString(text);
+})
 
 app.get('/', (request, response) => {
     //response.render(HomePage.build(Date.now()));
