@@ -1,12 +1,20 @@
 // server.js
 
+const supabase = require('@supabase/supabase-js')
+const createClient = supabase.createClient;
+
+const supabaseUrl = 'http://127.0.0.1:54321'
+const supabaseKey = 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH'
+const client = createClient(supabaseUrl, supabaseKey);
+
 const express = require('express');
 const app = express();
 
 const classes = require('./page_classes.js')
 const HomePage = classes.HomePage;
 
-const Handlebars = require('handlebars');
+const handlebars = require('express-handlebars');
+const engine = handlebars.engine();
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -21,24 +29,26 @@ const port = 3000;
 const ROOTPATH = 'C:/Users/jarra/Documents/gig-guide/website/';
 
 app.use(express.static(ROOTPATH));
+app.engine('handlebars', engine);
+app.set('view engine', 'handlebars');
+app.set('views', './views');
+app.set('partials', './views/partials')
 
-Handlebars.registerHelper('event_homepage_template', function () {
-    let text = `<tr>`
-    text += `<td><a href="{{this.event_id}}">{{this.event_name}}</a></td>`
-    text += `<td><a href="{{this.venue_id}}">{{this.venue.name}}</a></td>`
-    //text += `<td>${dateTimeString({{this.date_and_time}})}</td>`
-    text += `<td><a href="{{this.ticket_link}}>Link</a></td></tr>`
-    return new Handlebars.SafeString(text);
-})
+async function getEvents(date) {
+    events = await client.from('events').select('*, venues(venue_id, *)').ilike('date_and_time', `%${date.toISOString().substring(0,10)}%`);
+    console.log(date.toISOString().substring(0,10));
+    console.log(events.data)
+    return events.data;
+    //return [{event_id:1, event_name:"Charlier kirk"}, {event_id:2, event_name:"Charliest kirk"}]
+}
 
-app.get('/', (request, response) => {
-    //response.render(HomePage.build(Date.now()));
-    let data = fs.readFileSync('main.html').toString();
-    response.send(data);
+app.get('/', async (request, response)  => {
+    response.render('home', {events: await getEvents(new Date(Date.now()))});
 });
 
 app.get('/gigs/', (request, response) => {
     response.sendFile(`${ROOTPATH}gigs/main.html`);
+
 });
 
 app.get('/venues/', (request, response) => {
@@ -48,6 +58,10 @@ app.get('/venues/', (request, response) => {
 app.get('/artists/', (request, response) => {
     response.sendFile(`${ROOTPATH}artists/main.html`);
 });
+
+app.get('/fresh/', (request, response) => {
+    response.render('fresh');
+})
 
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);

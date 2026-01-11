@@ -1,0 +1,34 @@
+    <body>
+        <div class="content">
+            <div id="guide">
+                <table id="guide-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Venue</th>
+                        <th>Date and Time</th>
+                        <th>Tickets</th>
+                    </tr>
+                    <tr>
+                        <td><a href="gigs/?id=2">Sidney Phillips, Brazen Barbie + More</a></td>
+                        <td><a href="venues/">The Evelyn Hotel</a></td>
+                        <td>21/12/2025, 8pm-Late</td>
+                        <td><a href="https://tickets.oztix.com.au/outlet/event/4557e00b-9f40-4fb1-8b9a-aa0cdd2f3edc">Link</a></td>
+                    </tr>
+                    <tr>
+                        <td>Cool show</td>
+                        <td>Dope place</td>
+                        <td>Charlie kirk avenue</td>
+                        <td>Link</td>
+                    </tr>
+                {{#each events}}
+                    <tr>
+                        <td><a href="gigs/?id={{event_id}}">{{event_name}}</a></td>
+                        <td><a href="venues/?id={{venues.venue_id}}">{{venues.venue_name}}</a></td>
+                        <td>{{date_and_time}}</td>
+                        <td><a href="{{ticket_link}}">Link</a></td>
+                    </tr>
+                {{/each}}
+                </table>
+            </div>
+        </div>
+    </body>

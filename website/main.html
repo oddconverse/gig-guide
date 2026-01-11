@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="db.js"></script>
     <header>
         <link rel="stylesheet" href="main.css">
@@ -19,9 +20,6 @@
                         <th>Date and Time</th>
                         <th>Tickets</th>
                     </tr>
-                    {{#each event}}
-                        {{event_homepage_template}}
-                    {{/each}}
                     <tr>
                         <td><a href="gigs/?id=2">Sidney Phillips, Brazen Barbie + More</a></td>
                         <td><a href="venues/">The Evelyn Hotel</a></td>
@@ -29,6 +27,26 @@
                         <td><a href="https://tickets.oztix.com.au/outlet/event/4557e00b-9f40-4fb1-8b9a-aa0cdd2f3edc">Link</a></td>
                     </tr>
                 </table>
+                <script id="event_list_template" type="text/x-handlebars-template">
+                    {{#each events}}
+                        <tr>
+                            <td><a href="gigs/?id={{event_id}}">{{event_name}}</a></td>
+                            <td><a href="venues/?id={{venue.venue_id}}">{{venue.venue_name}}</a></td>
+                            <td>{{date_and_time}}</td>
+                            <td><a href="{{ticket_link}}">Link</a></td>
+                        </tr>
+                    {{/each}}
+                </script>
+                <script type="text/javascript">
+                    const templateText = document.getElementById("event_list_template")
+                    const template = Handlebars.compile(templateText);
+                    const response = await fetch('test.json');
+                    const json = await response.json();
+                    const data = template(json);
+                    document.getElementById("guide-table").innerHTML += data;
+                    console.log(json);
+                    console.log(document.getElementById("guide-table").innerHTML);
+                </script>
             </div>
         </div>
     </body>

@@ -1,0 +1,25 @@
+{
+    "events": 
+    [
+        {
+            "event_id": 1,
+            "event_name": "Diddy",
+            "venue": {
+                "venue_id": 1,
+                "venue_name": "Epstein island"
+            },
+            "date_time": "Evil date and time",
+            "ticket_link": ""
+        },
+        {
+            "event_id": 2,
+            "event_name": "Worse Diddy",
+            "venue": {
+                "venue_id": 2,
+                "venue_name": "Some even more evil place"
+            },
+            "date_time": "Evil date and time yep again same time",
+            "ticket_link": ""
+        }
+    ]
+}
