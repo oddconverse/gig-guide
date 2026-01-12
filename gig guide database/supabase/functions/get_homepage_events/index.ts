@@ -15,7 +15,7 @@ const client = createClient(supabaseUrl, supabaseKey);
 
 Deno.serve(async (req) => {
   const { date } = await req.json()
-  const data = client.select('*').from()
+  const { data } = client.select('*').from('events')
 
   return new Response(
     JSON.stringify(data),

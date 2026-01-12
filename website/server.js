@@ -35,28 +35,47 @@ app.set('views', './views');
 app.set('partials', './views/partials')
 
 async function getEvents(date) {
-    events = await client.from('events').select('*, venues(venue_id, *)').ilike('date_and_time', `%${date.toISOString().substring(0,10)}%`);
-    console.log(date.toISOString().substring(0,10));
-    console.log(events.data)
+    //events = await client.from('events').select('*, venues(venue_id, *)').like('CAST(date_and_time AS text)', `2026-01-11%`);
+    date.setDate(date.getDate())
+    const tomorrow = new Date();
+    tomorrow.setDate(date.getDate() + 1)
+    events = await client.from('events').select('*, venues(venue_id, *)').gt('date_and_time', `${date.toISOString()}`).lt('date_and_time', `${tomorrow.toISOString()}`);
     return events.data;
     //return [{event_id:1, event_name:"Charlier kirk"}, {event_id:2, event_name:"Charliest kirk"}]
+}
+
+async function getEvent(id) {
+    const event = await client.from('events')
+    .select(`*, 
+        event_lineup(event_id, 
+        artist_lineup(event_lineup_id, 
+        artists(artist_id, *))), venues(venue_id, *), event_tags(event_id, *))`)
+        .eq('event_id', id).limit(1).single();
+    console.log(event.data);
+    return event.data;
+}
+
+async function getArtist(id) {
+    const artist = await client.from('artists')
+    .select(`*`).eq('artist_id', id).limit(1).single();
+    return artist.data;
 }
 
 app.get('/', async (request, response)  => {
     response.render('home', {events: await getEvents(new Date(Date.now()))});
 });
 
-app.get('/gigs/', (request, response) => {
-    response.sendFile(`${ROOTPATH}gigs/main.html`);
-
+app.get('/events/:id', async (request, response) => {
+    console.log(request.params.id);
+    response.render('events', {event: await getEvent(parseInt(request.params.id))});
 });
 
-app.get('/venues/', (request, response) => {
+app.get('/venues/:id', (request, response) => {
     response.sendFile(`${ROOTPATH}venues/main.html`);
 });
 
-app.get('/artists/', (request, response) => {
-    response.sendFile(`${ROOTPATH}artists/main.html`);
+app.get('/artists/:id', async (request, response) => {
+    response.render('artists', {artist: await getArtist(parseInt(request.params.id))});
 });
 
 app.get('/fresh/', (request, response) => {
