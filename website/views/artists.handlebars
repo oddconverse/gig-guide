@@ -1,7 +1,41 @@
 <body>
     <div class="content">
-        <div class="info-head">
-            <h1 id="artist-name">{{artist.artist_name}}</h1>
+        <div class="main-content">
+            <div class="info-head">
+                {{#with artist}}
+                    <h1 id="artist-name">{{artist_name}}</h1>
+                    <p>{{artist_description}}</p>
+                {{/with}}
+            </div>
+            <div>
+                <h1>Events:</h1>
+                {{#if events}}
+                {{> event_table events=events}}
+                {{else}}
+                    <p>No future events.</p>
+                {{/if}}
+            </div>
+        </div>
+        <div class="right-sidebar">
+            {{#if collectiveMembers}}
+                <div class="right-sidebar-content">
+                    <h1>Members:</h1>
+                    {{#each collectiveMembers}}
+                    <a href="../../artists/{{artist_id}}"><p>{{artist_name}}</p></a>
+                    {{/each}}
+                </div>
+            {{/if}}
+            {{#if memberOf}}
+                <div class="right-sidebar-content">
+                    <h1>Member of:</h1>
+                    {{#each memberOf}}
+                    <a href="../../artists/{{artist_id}}"><p>{{artist_name}}</p></a>
+                    {{/each}}
+                </div>
+            {{/if}}
         </div>
     </div>
+    <script>
+        console.log(document.getElementById("artist-name"));
+    </script>
 </body>

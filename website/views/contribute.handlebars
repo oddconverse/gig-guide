@@ -1,0 +1,42 @@
+<body>
+    <div class="content">
+        <div class="main-content">
+            <form autocomplete="off">
+                <label for="event-name">Event name: (if left blank will be created based on artists)</label><br>
+                <input type="text" id="event-name" placeholder="Name"><br>
+                <label for="venue-input">Venue:</label><br>
+                <div class="autocomplete">
+                    <input id="venue-input" type="text" placeholder="Venue" list="venues"><br>
+                </div><br>
+                <label for="artist-input">Artists:</label><br>
+                <div class="autocomplete">
+                    <input type="text" id="artist-input" placeholder="Artist" list="artists"><br>
+                </div><br>
+                <label for="date-and-time">Date and Time</label>
+                <input type="date" id="date-and-time">
+                <input type="time"><br>
+                <label for="tags">Tags</label><br>
+                <input type="text" id="tags" placeholder="Tags"><br>
+                <label for="description">Description</label>
+                <input type="text" id="description" placeholder="Description">
+            </form>
+        </div>
+    </div>
+    <script src="autocomplete.js"></script>
+    <script>
+        let venues = JSON.parse("{{venue_names}}".replaceAll("&quot;", "\""))
+        let venue_input = document.getElementById("venue-input");
+        let artists = JSON.parse("{{artist_names}}".replaceAll("&quot;", "\""));
+        let artist_input = document.getElementById("artist-input");
+        let venue_array = [];
+        let artist_array = [];
+        for (let i = 0; i < artists.length; i++){
+            artist_array[i] = artists[i].artist_name;
+        } 
+        for (let i = 0; i < venues.length; i++) {
+            venue_array[i] = venues[i].venue_name;
+        }
+        autoComplete(venue_input, venue_array);
+        autoComplete(artist_input, artist_array);
+    </script>
+</body>

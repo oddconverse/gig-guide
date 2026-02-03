@@ -1,6 +1,17 @@
     <body>
+        <h1>It's gig city.</h1>
+        <h3>Explore what's happening in your city today.</h3>
+        <img src="views/leany thing.svg" height="266px" width="547px" style="align: right"/>
         <div class="content">
             <div id="guide">
+                <h2>GIGS ON FROM {{#dateString start_date}} {{/dateString}} TO {{#dateString end_date}} {{/dateString}}</h2>
+                <form>
+                    <input type="date">
+                    <input type="date"> 
+                    <div class="autocomplete"><input type="text" placeholder="Artists"></div>
+                    <div class="autocomplete"><input type="text" placeholder="Tags"></div> 
+                    <div class="autocomplete"><input type="text" placeholder="Venue"></div>
+                </form>
                 <table id="guide-table">
                     <tr>
                         <th>Name</th>
@@ -23,8 +34,8 @@
                 {{#each events}}
                     <tr>
                         <td><a href="events/{{event_id}}">{{event_name}}</a></td>
-                        <td><a href="venues/{{venues.venue_id}}">{{venues.venue_name}}</a></td>
-                        <td>{{date_and_time}}</td>
+                        <td><a href="venues/{{venue_id}}">{{venue_name}}</a></td>
+                        <td>{{#dateTimeString date_and_time}} {{/dateTimeString}}</td>
                         <td><a href="{{ticket_link}}">Link</a></td>
                     </tr>
                 {{/each}}

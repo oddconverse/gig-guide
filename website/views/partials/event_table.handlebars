@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Venue</th>
+        <th>Date and Time</th>
+        <th>Tickets</th>
+    </tr>
+    {{#each events}}
+    <tr>
+        <td><a href="../../events/{{event_id}}"><p>{{event_name}}</p></a></td>
+        <td><a href="../../venues/{{venue_id}}">{{venue_name}}</a></td>
+        <td>{{#dateTimeString date_and_time}} {{/dateTimeString}}</td>
+        <td><a href="{{ticket_link}}">Link</a></td>
+    </tr>
+    {{/each}}
+</table>

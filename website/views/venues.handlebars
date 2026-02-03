@@ -1,0 +1,23 @@
+<body>
+    <div class="content">
+        <div class="main-content">
+            <div class="info-head">
+                {{#with venue}}
+                    <h1>{{venue_name}}</h1>
+                    {{#if address}}
+                    <p>{{address}}, {{suburb}} {{postcode}}</p>
+                    {{/if}}
+                {{/with}}
+            </div>
+            <div>
+                <h1>Events:</h1>
+                {{#if events}}
+                    <!-- FUCK THIS. CREATE A HELPER TO PUT EVENTS IN A TABLE -->
+                {{> event_table events=events}}
+                {{else}}
+                    <p>No future events.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>

@@ -3,37 +3,37 @@
         <div class="main-content">
             <div class="info-head">
                 <h1 id="title">{{event.event_name}}</h1>
-                <h3 id="date_venue">{{event.venues.venue_name}}, {{event.venues.suburb}}, {{event.date_and_time}}</h3>
+                <h3 id="date_venue">{{#if venue.venue_name}}<a href="../../venues/{{venue.venue_id}}">{{venue.venue_name}}</a>, {{/if}}{{#if venue.suburb}} {{venue.suburb}}, {{/if}}{{#dateTimeString event.date_and_time}}{{/dateTimeString}}</h3>
             </div>
             <div class="gig-body" id="description">
                 {{event.event_description}}
             </div>
         </div>
-        <div class="gig-body" id="right-sidebar">
+        <div class="right-sidebar">
+            {{#if lineup}}
                 <div class="right-sidebar-content" id="artists">
                     <h3>Artists:</h3>
                     <ol>
-                        {{#each event.event_lineup}}
-                            <li>
-                            {{#each artist_lineup}}
-                                <a href="../artists/{{artists.artist_id}}">{{artists.artist_name}}</a>
-                            {{/each}}
-                            </li>
+                        {{#each lineup}}
+                            <li><a href="../../artists/{{artist_id}}">{{artist_name}}</a></li>
                         {{/each}}
                     </ol>
                 </div>
+            {{/if}}
+            {{#if event.links}}
                 <div class="right-sidebar-content" id="links">
                     <h3>Links:</h3>
                     {{#each event.links}}
                     <a href="{{link}}"> {{link_name}} </a>
                     {{/each}}
                 </div>
+            {{/if}}
+            {{#if event_tags}}
                 <div class="right-sidebar-content" id="tags">
                     <h3>Tags:</h3>
-                    <p>{{#each event.event_tags}} 
-                        {{tag}}, 
-                    {{/each}}</p>
+                    <p>{{#each event_tags}}<a href="../tags/{{tag}}">{{tag}},</a>{{/each}}</p>
                 </div>
-            </div>
+            {{/if}}
+        </div>
     </div>
 </body>
